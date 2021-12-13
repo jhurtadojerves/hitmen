@@ -43,11 +43,13 @@ DJANGO_APPS = [
 LOCAL_APPS = [
     "apps.authentication",
     "apps.hits",
+    "apps.transitions",
 ]
 THIRD_PARTY_INTEGRATION_APPS = [
     "crispy_forms",
+    "tracing",
 ]
-INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_INTEGRATION_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_INTEGRATION_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -57,6 +59,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "tracing.middleware.TracingMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
