@@ -30,5 +30,6 @@ urlpatterns = [
         name="home",
     ),
     path("", include("apps.authentication.urls")),
+    path("", include("apps.hits.urls")),
     path("", include("apps.transitions.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
