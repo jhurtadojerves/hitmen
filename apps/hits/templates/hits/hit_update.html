@@ -1,0 +1,13 @@
+{% extends 'hits/hit_form.html' %}
+{% block content_title %}
+  Updating Hit #: {{ object.pk }}
+{% endblock %}
+{% block navigation_extra %}
+  {% url 'hits:list' as hits_list %}
+  {% include "base/nav_with_url.html" with url=hits_list label='Hits' %}
+  {% include "base/nav_with_url.html" with url=object.get_detail_url label=object %}
+  {% include "base/nav_without_url.html" with label='Update hit' %}
+{% endblock %}
+{% block submit %}
+  <button type="submit" class="btn btn-success">Update!</button>
+{% endblock %}

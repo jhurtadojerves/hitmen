@@ -1,4 +1,4 @@
-"""File to transitons conditions"""
+"""File to transitions conditions"""
 
 # Third party integration
 

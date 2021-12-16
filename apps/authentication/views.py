@@ -19,7 +19,7 @@ class RegisterView(CreateView):
     model = User
     form_class = RegisterForm
     template_name = "authentication/register.html"
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("auth:login")
 
     def form_valid(self, form):
         messages.add_message(
@@ -29,7 +29,7 @@ class RegisterView(CreateView):
 
     def form_invalid(self, form):
         messages.add_message(self.request, messages.ERROR, "An error has occurred")
-        return super().form_valid(form)
+        return super().form_invalid(form)
 
 
 class HitmanListView(PermissionRequiredMixin, ListView):

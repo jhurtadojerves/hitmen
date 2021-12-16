@@ -49,7 +49,7 @@ class User(AbstractUser):
 
     def __str__(self):
         """Return username."""
-        return self.username
+        return f"{self.get_full_name()} ({self.get_state_display()})"
 
     def get_detail_url(self):
         return reverse(

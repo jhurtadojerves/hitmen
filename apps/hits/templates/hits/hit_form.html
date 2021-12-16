@@ -14,7 +14,9 @@
       <form method="post" class="create-form" novalidate>
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit" class="btn btn-success">Create</button>
+        {% block submit %}
+          <button type="submit" class="btn btn-success">Create</button>
+        {% endblock %}
       </form>
     </div>
   </div>

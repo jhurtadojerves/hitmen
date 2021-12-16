@@ -3,7 +3,9 @@
   {% include "base/nav_without_url.html" with label='Hits' %}
 {% endblock %}
 {% block content_title %}
-  Hits list!
+  Hits list! {% if request.user.pk == 1 or request.user.subordinates.all %}
+  <a href="{% url 'hits:create' %}"><i class="fas fa-plus"></i></a>
+{% endif %}
 {% endblock %}
 {% block content %}
   <div class="table-responsive">
@@ -22,9 +24,9 @@
       {% for object in object_list %}
         <tr>
           <th scope="row">{{ object.pk }}</th>
-          <td>{{ object.assigned.get_full_name }}</td>
-          <td>{{ object.creator.get_full_name }}</td>
-          <td>{{ object.target }}</td>
+          <td>{{ object.assigned }}</td>
+          <td>{{ object.creator }}</td>
+          <td>{{ object.target_name }}</td>
           <td>{{ object.get_state_display }}</td>
           <td>
             <a href="{% url 'hits:detail' object.pk %}" title="Detail"><i class="fas fa-eye"></i></a>
@@ -35,5 +37,6 @@
       </tbody>
     </table>
   </div>
-
+  <hr>
+  <a href="{% url 'hits:bulk' %}" class="btn btn-success">Bulk reassignment!</a>
 {% endblock %}

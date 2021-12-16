@@ -1,0 +1,35 @@
+{% extends "base/base_detail.html" %}
+
+{% block content_title %}
+  {% if object.state == 1 %}
+    {% if request.user.pk == 1 or object.assigned.boss.pk == request.user.pk %}
+      <a href="edit/"><i class="fas fa-edit"></i></a>
+    {% endif %}
+  {% endif %} Hit detail: {{ object.pk }} ({{ object.get_state_display }})
+{% endblock %}
+
+{% block navigation_extra %}
+  {% include "base/nav_with_url.html" with url=object.get_list_url label='Hits' %}
+  {% include "base/nav_without_url.html" with label=object %}
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-12">
+      <h5 class="text-primary">Assigned</h5>
+      <p>{{ object.assigned }}</p>
+    </div>
+    <div class="col-12">
+      <h5 class="text-primary">Description</h5>
+      <p>{{ object.mission_description|default:"Without description" }}</p>
+    </div>
+    <div class="col-12">
+      <h5 class="text-primary">Target</h5>
+      <p>{{ object.target_name|default:"Without description" }}</p>
+    </div>
+    <div class="col-12">
+      <h5 class="text-primary">Created by</h5>
+      <p>{{ object.creator.get_full_name }}</p>
+    </div>
+  </div>
+{% endblock %}

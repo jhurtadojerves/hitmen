@@ -1,0 +1,54 @@
+{% extends "base/list.html" %}
+{% load crispy_forms_tags hits %}
+{% block navigation_extra %}
+  {% include "base/nav_without_url.html" with label='Hits' %}
+{% endblock %}
+{% block content_title %}
+  Hits list to bulk reassignment!
+{% endblock %}
+{% block content %}
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {% if form.errors %}
+      <span style="color: red;">
+      {{ form.errors }}
+      </span>
+    {% endif %}
+    {{ form.hitman|as_crispy_field }}
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col">Key</th>
+          <th scope="col">Target</th>
+          <th scope="col">Mission Description</th>
+          <th scope="col">Assigned</th>
+          <th scope="col">Creator</th>
+          <th scope="col">State</th>
+          <th scope="col">Select</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for choice in form.hits %}
+          <tr>
+            <th scope="row">{{ choice.data.value.instance.pk }}</th>
+            <td>{{ choice.data.value.instance.target_name }}</td>
+            <td>{{ choice.data.value.instance.mission_description }}</td>
+            <td>{{ choice.data.value.instance.assigned }}</td>
+            <td>{{ choice.data.value.instance.creator }}</td>
+            <td>{{ choice.data.value.instance.get_state_display }}</td>
+            <td>
+              <input class="form-check-input" type="checkbox" id="{{ choice.data.attrs.id }}" name="hits"
+                     value="{{ choice.data.value.instance.pk }}">
+            </td>
+          </tr>
+        {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+    <hr>
+    <button type="submit" class="btn btn-success">Bulk reassignment!</button>
+  </form>
+
+{% endblock %}

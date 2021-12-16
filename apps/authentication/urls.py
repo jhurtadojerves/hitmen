@@ -6,7 +6,12 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 
 # Views
-from apps.authentication.views import HitmanListView, HitmanDetailView, CreateBossView
+from apps.authentication.views import (
+    HitmanListView,
+    HitmanDetailView,
+    CreateBossView,
+    RegisterView,
+)
 
 app_name = "auth"
 
@@ -17,9 +22,16 @@ urlpatterns = (
     #    name="register",
     # ),
     path(
-        route="login/",
-        view=LoginView.as_view(template_name="authentication/login.html"),
+        route="",
+        view=LoginView.as_view(
+            template_name="authentication/login.html", redirect_authenticated_user=True
+        ),
         name="login",
+    ),
+    path(
+        route="register/",
+        view=RegisterView.as_view(),
+        name="register",
     ),
     path(
         route="logout/",
