@@ -31,6 +31,11 @@ class RegisterView(CreateView):
         messages.add_message(self.request, messages.ERROR, "An error has occurred")
         return super().form_invalid(form)
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect(self.success_url)
+        return super().get(request, *args, **kwargs)
+
 
 class HitmanListView(PermissionRequiredMixin, ListView):
     model = User
